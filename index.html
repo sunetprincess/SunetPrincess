@@ -7,10 +7,6 @@
 <title>Sunet — энциклопедия</title>
 
 <style>
-/* =========================================================
-   BASE — Wikipedia / MediaWiki inspired
-   ========================================================= */
-
 * {
     box-sizing: border-box;
 }
@@ -29,22 +25,20 @@ body {
     line-height: 1.6;
 }
 
-/* =========================================================
-   TOP BAR
-   ========================================================= */
+/* ================= TOP ================= */
 
 .topbar {
-    height: 50px;
+    min-height: 50px;
     border-bottom: 1px solid #c8ccd1;
     display: flex;
     align-items: center;
     padding: 0 24px;
     background: #fff;
+    gap: 18px;
 }
 
 .menu {
     font-size: 22px;
-    margin-right: 18px;
     color: #54595d;
 }
 
@@ -54,23 +48,45 @@ body {
     font-weight: 600;
 }
 
-.search {
+.languages {
+    display: flex;
+    gap: 4px;
     margin-left: auto;
-    width: 240px;
+}
+
+.lang-btn {
+    border: 1px solid transparent;
+    background: transparent;
+    color: #36c;
+    padding: 5px 8px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.lang-btn:hover {
+    background: #eaecf0;
+}
+
+.lang-btn.active {
+    color: #202122;
+    border: 1px solid #a2a9b1;
+    background: #f8f9fa;
+    font-weight: 600;
+}
+
+.search {
+    width: 220px;
     height: 32px;
     border: 1px solid #a2a9b1;
     padding: 5px 9px;
     font-size: 14px;
-    color: #72777d;
 }
 
 .search::placeholder {
     color: #72777d;
 }
 
-/* =========================================================
-   PAGE
-   ========================================================= */
+/* ================= PAGE ================= */
 
 .page {
     width: min(1100px, 94%);
@@ -80,9 +96,7 @@ body {
     gap: 35px;
 }
 
-/* =========================================================
-   SIDEBAR
-   ========================================================= */
+/* ================= SIDEBAR ================= */
 
 .sidebar {
     padding-top: 35px;
@@ -112,9 +126,7 @@ body {
     margin: 18px 0;
 }
 
-/* =========================================================
-   ARTICLE
-   ========================================================= */
+/* ================= ARTICLE ================= */
 
 .article {
     max-width: 850px;
@@ -150,9 +162,7 @@ body {
     color: #36c;
 }
 
-/* =========================================================
-   INTRO
-   ========================================================= */
+/* ================= INTRO ================= */
 
 .intro {
     font-size: 14px;
@@ -168,9 +178,7 @@ a:hover {
     text-decoration: underline;
 }
 
-/* =========================================================
-   INFOBOX
-   ========================================================= */
+/* ================= INFOBOX ================= */
 
 .infobox {
     float: right;
@@ -212,9 +220,7 @@ a:hover {
     padding: 6px;
 }
 
-/* =========================================================
-   TOC
-   ========================================================= */
+/* ================= TOC ================= */
 
 .toc {
     display: table;
@@ -240,9 +246,7 @@ a:hover {
     padding-left: 22px;
 }
 
-/* =========================================================
-   HEADINGS
-   ========================================================= */
+/* ================= HEADINGS ================= */
 
 h2 {
     clear: both;
@@ -260,9 +264,7 @@ h3 {
     font-weight: 400;
 }
 
-/* =========================================================
-   SECRET BARS
-   ========================================================= */
+/* ================= SECRET ================= */
 
 .secret {
     display: inline-block;
@@ -302,44 +304,7 @@ h3 {
     width: 38%;
 }
 
-/* =========================================================
-   STRANGE TEXT
-   ========================================================= */
-
-.distorted {
-    color: #202122;
-    position: relative;
-}
-
-.distorted:hover {
-    animation: tremor .12s infinite;
-}
-
-@keyframes tremor {
-    0% {
-        transform: translateX(0);
-    }
-
-    25% {
-        transform: translateX(-1px);
-    }
-
-    50% {
-        transform: translateX(1px);
-    }
-
-    75% {
-        transform: translateX(-1px);
-    }
-
-    100% {
-        transform: translateX(0);
-    }
-}
-
-/* =========================================================
-   NOTICE
-   ========================================================= */
+/* ================= NOTICE ================= */
 
 .notice {
     border: 1px solid #a2a9b1;
@@ -352,9 +317,7 @@ h3 {
     font-weight: 700;
 }
 
-/* =========================================================
-   QUOTE
-   ========================================================= */
+/* ================= QUOTE ================= */
 
 .quote {
     margin: 20px 0;
@@ -363,9 +326,7 @@ h3 {
     color: #54595d;
 }
 
-/* =========================================================
-   CATEGORIES
-   ========================================================= */
+/* ================= CATEGORIES ================= */
 
 .categories {
     clear: both;
@@ -381,9 +342,7 @@ h3 {
     margin-right: 10px;
 }
 
-/* =========================================================
-   FOOTER
-   ========================================================= */
+/* ================= FOOTER ================= */
 
 footer {
     border-top: 1px solid #c8ccd1;
@@ -403,9 +362,7 @@ footer {
     padding: 1px 7px;
 }
 
-/* =========================================================
-   MOBILE
-   ========================================================= */
+/* ================= MOBILE ================= */
 
 @media (max-width: 800px) {
 
@@ -435,16 +392,17 @@ footer {
     .article-header h1 {
         font-size: 30px;
     }
-
-    .secret-long {
-        width: 100%;
-    }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 520px) {
 
     .topbar {
-        padding: 0 12px;
+        padding: 8px 12px;
+        flex-wrap: wrap;
+    }
+
+    .languages {
+        margin-left: auto;
     }
 
     .search {
@@ -457,6 +415,7 @@ footer {
 
     .toc {
         width: 100%;
+        min-width: 0;
     }
 }
 </style>
@@ -464,21 +423,36 @@ footer {
 
 <body>
 
-<!-- =====================================================
-     TOP
-     ===================================================== -->
+<!-- ================= TOP ================= -->
 
 <header class="topbar">
 
     <div class="menu">☰</div>
 
     <div class="site-name">
-        Энциклопедия
+        <span data-i18n="encyclopedia">Энциклопедия</span>
+    </div>
+
+    <div class="languages">
+
+        <button class="lang-btn active" data-lang="ru">
+            RU
+        </button>
+
+        <button class="lang-btn" data-lang="uk">
+            UA
+        </button>
+
+        <button class="lang-btn" data-lang="en">
+            EN
+        </button>
+
     </div>
 
     <input
         class="search"
         type="text"
+        data-placeholder="search"
         placeholder="Поиск"
     >
 
@@ -487,49 +461,78 @@ footer {
 
 <div class="page">
 
-<!-- =====================================================
-     SIDEBAR
-     ===================================================== -->
+<!-- ================= SIDEBAR ================= -->
 
 <aside class="sidebar">
 
-    <div class="sidebar-title">
+    <div class="sidebar-title" data-i18n="navigation">
         Навигация
     </div>
 
-    <a href="#intro">Начало</a>
-    <a href="#bio">Биография</a>
-    <a href="#activity">Деятельность</a>
-    <a href="#status">Статус</a>
+    <a href="#intro" data-i18n="start">
+        Начало
+    </a>
+
+    <a href="#bio" data-i18n="biography">
+        Биография
+    </a>
+
+    <a href="#activity" data-i18n="activity">
+        Деятельность
+    </a>
+
+    <a href="#status" data-i18n="status">
+        Статус
+    </a>
 
     <div class="sidebar-line"></div>
 
-    <div class="sidebar-title">
+    <div class="sidebar-title" data-i18n="tools">
         Инструменты
     </div>
 
-    <a href="#">Статья</a>
-    <a href="#">Обсуждение</a>
-    <a href="#">Читать</a>
-    <a href="#">Править</a>
-    <a href="#">История</a>
+    <a href="#" data-i18n="article">
+        Статья
+    </a>
+
+    <a href="#" data-i18n="discussion">
+        Обсуждение
+    </a>
+
+    <a href="#" data-i18n="read">
+        Читать
+    </a>
+
+    <a href="#" data-i18n="edit">
+        Править
+    </a>
+
+    <a href="#" data-i18n="history">
+        История
+    </a>
 
     <div class="sidebar-line"></div>
 
-    <div class="sidebar-title">
+    <div class="sidebar-title" data-i18n="other">
         Прочее
     </div>
 
-    <a href="#">Связанные изменения</a>
-    <a href="#">Цитировать</a>
-    <a href="#">Постоянная ссылка</a>
+    <a href="#" data-i18n="changes">
+        Связанные изменения
+    </a>
+
+    <a href="#" data-i18n="cite">
+        Цитировать
+    </a>
+
+    <a href="#" data-i18n="permalink">
+        Постоянная ссылка
+    </a>
 
 </aside>
 
 
-<!-- =====================================================
-     ARTICLE
-     ===================================================== -->
+<!-- ================= ARTICLE ================= -->
 
 <main class="article" id="intro">
 
@@ -538,11 +541,27 @@ footer {
         <h1>Sunet</h1>
 
         <div class="tabs">
-            <span>Статья</span>
-            <span>Обсуждение</span>
-            <span>Читать</span>
-            <span>Править</span>
-            <span>История</span>
+
+            <span data-i18n="article">
+                Статья
+            </span>
+
+            <span data-i18n="discussion">
+                Обсуждение
+            </span>
+
+            <span data-i18n="read">
+                Читать
+            </span>
+
+            <span data-i18n="edit">
+                Править
+            </span>
+
+            <span data-i18n="history">
+                История
+            </span>
+
         </div>
 
     </div>
@@ -556,13 +575,15 @@ footer {
             Sunet
         </div>
 
-        <div class="infobox-subtitle">
+        <div class="infobox-subtitle"
+             data-i18n="artist">
             художница
         </div>
 
         <div class="infobox-row">
 
-            <div class="infobox-label">
+            <div class="infobox-label"
+                 data-i18n="name">
                 Имя
             </div>
 
@@ -574,7 +595,8 @@ footer {
 
         <div class="infobox-row">
 
-            <div class="infobox-label">
+            <div class="infobox-label"
+                 data-i18n="alias">
                 Псевдоним
             </div>
 
@@ -586,11 +608,13 @@ footer {
 
         <div class="infobox-row">
 
-            <div class="infobox-label">
+            <div class="infobox-label"
+                 data-i18n="birth">
                 Дата рождения
             </div>
 
-            <div class="infobox-value">
+            <div class="infobox-value"
+                 data-i18n="birthdate">
                 14 августа 2007
             </div>
 
@@ -598,11 +622,13 @@ footer {
 
         <div class="infobox-row">
 
-            <div class="infobox-label">
+            <div class="infobox-label"
+                 data-i18n="birthplace">
                 Место рождения
             </div>
 
-            <div class="infobox-value">
+            <div class="infobox-value"
+                 data-i18n="ukraine">
                 Украина
             </div>
 
@@ -610,11 +636,13 @@ footer {
 
         <div class="infobox-row">
 
-            <div class="infobox-label">
+            <div class="infobox-label"
+                 data-i18n="occupation">
                 Род деятельности
             </div>
 
-            <div class="infobox-value">
+            <div class="infobox-value"
+                 data-i18n="occupations">
                 художница, певица
             </div>
 
@@ -622,11 +650,13 @@ footer {
 
         <div class="infobox-row">
 
-            <div class="infobox-label">
+            <div class="infobox-label"
+                 data-i18n="currentstatus">
                 Статус
             </div>
 
-            <div class="infobox-value">
+            <div class="infobox-value"
+                 data-i18n="unknown">
                 сведения отсутствуют
             </div>
 
@@ -637,7 +667,7 @@ footer {
 
     <!-- INTRO -->
 
-    <p class="intro">
+    <p class="intro" data-i18n="intro1">
 
         <b>Sunet</b> (настоящее имя — <b>София</b>;
         род. 14 августа 2007, Украина) — художница,
@@ -645,15 +675,13 @@ footer {
 
     </p>
 
-    <p class="intro">
+    <p class="intro" data-i18n="intro2">
 
         В настоящее время достоверные сведения о её
         местонахождении и жизни отсутствуют.
 
     </p>
 
-
-    <!-- SECRET -->
 
     <div class="secret-long"></div>
 
@@ -666,31 +694,38 @@ footer {
 
     <div class="toc">
 
-        <div class="toc-title">
+        <div class="toc-title"
+             data-i18n="contents">
             Содержание
         </div>
 
-        <a href="#bio">
+        <a href="#bio" data-i18n="toc1">
             1. Биография
         </a>
 
-        <a href="#childhood" class="sub">
+        <a href="#childhood"
+           class="sub"
+           data-i18n="toc11">
             1.1 Детство
         </a>
 
-        <a href="#activity">
+        <a href="#activity" data-i18n="toc2">
             2. Творческая деятельность
         </a>
 
-        <a href="#television" class="sub">
+        <a href="#television"
+           class="sub"
+           data-i18n="toc21">
             2.1 Телевидение
         </a>
 
-        <a href="#voice" class="sub">
+        <a href="#voice"
+           class="sub"
+           data-i18n="toc22">
             2.2 Вокал
         </a>
 
-        <a href="#status">
+        <a href="#status" data-i18n="toc3">
             3. Текущий статус
         </a>
 
@@ -699,11 +734,11 @@ footer {
 
     <!-- BIOGRAPHY -->
 
-    <h2 id="bio">
+    <h2 id="bio" data-i18n="bioTitle">
         Биография
     </h2>
 
-    <p>
+    <p data-i18n="bio1">
 
         София родилась 14 августа 2007 года
         на территории Украины.
@@ -713,7 +748,7 @@ footer {
 
     </p>
 
-    <p>
+    <p data-i18n="bio2">
 
         По имеющимся сведениям, с раннего возраста
         она проявляла интерес к сценическому искусству,
@@ -722,18 +757,21 @@ footer {
     </p>
 
 
-    <h3 id="childhood">
+    <h3 id="childhood"
+        data-i18n="childhoodTitle">
+
         Детство
+
     </h3>
 
-    <p>
+    <p data-i18n="childhood1">
 
         В детстве София занималась танцами и балетом.
         Также она занималась вокалом и исполняла песни.
 
     </p>
 
-    <p>
+    <p data-i18n="childhood2">
 
         В один из периодов детства она участвовала
         в телевизионной передаче, в рамках которой
@@ -741,7 +779,8 @@ footer {
 
     </p>
 
-    <div class="quote">
+    <div class="quote"
+         data-i18n="quote">
 
         Точная информация о названии передачи,
         дате выхода эпизода и телеканале отсутствует.
@@ -751,18 +790,21 @@ footer {
 
     <!-- ACTIVITY -->
 
-    <h2 id="activity">
+    <h2 id="activity"
+        data-i18n="activityTitle">
+
         Творческая деятельность
+
     </h2>
 
-    <p>
+    <p data-i18n="activity1">
 
         Основным направлением деятельности Sunet
         является изобразительное искусство.
 
     </p>
 
-    <p>
+    <p data-i18n="activity2">
 
         Сведения о раннем творческом периоде,
         используемых техниках и количестве работ
@@ -770,7 +812,7 @@ footer {
 
     </p>
 
-    <p class="distorted">
+    <p data-i18n="activity3">
 
         В сохранившихся описаниях её творчество
         связывается с образами кукол, сказочных
@@ -779,18 +821,21 @@ footer {
     </p>
 
 
-    <h3 id="television">
+    <h3 id="television"
+        data-i18n="televisionTitle">
+
         Телевидение
+
     </h3>
 
-    <p>
+    <p data-i18n="television1">
 
         В детстве София участвовала в телевизионной
         программе, где готовила блюда перед камерой.
 
     </p>
 
-    <p>
+    <p data-i18n="television2">
 
         Архивные сведения о программе в настоящее
         время не установлены.
@@ -798,11 +843,14 @@ footer {
     </p>
 
 
-    <h3 id="voice">
+    <h3 id="voice"
+        data-i18n="voiceTitle">
+
         Вокал
+
     </h3>
 
-    <p>
+    <p data-i18n="voice1">
 
         До исчезновения из публичного поля София
         занималась вокалом и пела.
@@ -810,14 +858,14 @@ footer {
     </p>
 
 
-    <!-- MORE BLACK -->
-
     <div class="secret-long"></div>
 
-    <p>
+    <p data-i18n="missing">
+
         Некоторые сведения о данном периоде
         <span class="secret">████████████████</span>
         отсутствуют.
+
     </p>
 
     <div class="secret-medium"></div>
@@ -825,23 +873,34 @@ footer {
 
     <!-- STATUS -->
 
-    <h2 id="status">
+    <h2 id="status"
+        data-i18n="statusTitle">
+
         Текущий статус
+
     </h2>
 
     <div class="notice">
 
-        <div class="notice-title">
+        <div class="notice-title"
+             data-i18n="noticeTitle">
+
             Сведения о местонахождении отсутствуют
+
         </div>
 
-        Информация о текущей жизни Софии,
-        её местонахождении и состоянии
-        не подтверждена доступными сведениями.
+        <span data-i18n="noticeText">
+
+            Информация о текущей жизни Софии,
+            её местонахождении и состоянии
+            не подтверждена доступными сведениями.
+
+        </span>
 
     </div>
 
-    <p>
+
+    <p data-i18n="doll">
 
         Согласно сохранившимся описаниям,
         в настоящее время Sunet представляется
@@ -849,7 +908,7 @@ footer {
 
     </p>
 
-    <p>
+    <p data-i18n="princess">
 
         Её также связывают с образом
         <b>потерянной принцессы Страны чудес</b>,
@@ -857,7 +916,7 @@ footer {
 
     </p>
 
-    <p>
+    <p data-i18n="reliability">
 
         Достоверность данных сведений установить
         невозможно.
@@ -865,27 +924,29 @@ footer {
     </p>
 
 
+    <!-- SECRET INFORMATION -->
+
     <div class="secret-long"></div>
 
     <div class="secret-short"></div>
 
     <div class="secret-medium"></div>
 
-    <p>
+    <p data-i18n="lastconfirmed">
 
         Последняя подтверждённая информация:
         <span class="secret">████████████████████████████</span>
 
     </p>
 
-    <p>
+    <p data-i18n="location">
 
         Последнее местонахождение:
         <span class="secret">████████████████████████</span>
 
     </p>
 
-    <p>
+    <p data-i18n="date">
 
         Дата:
         <span class="secret">████████████</span>
@@ -895,21 +956,15 @@ footer {
     <div class="secret-long"></div>
 
 
-    <!-- FINAL -->
-
-    <p>
-
+    <p data-i18n="further">
         <i>
             Дальнейшие сведения отсутствуют.
         </i>
-
     </p>
 
-    <p>
+    <p data-i18n="notupdated">
 
-        <span class="distorted">
-            Статья не обновлялась.
-        </span>
+        Статья не обновлялась.
 
     </p>
 
@@ -918,14 +973,36 @@ footer {
 
     <div class="categories">
 
-        <span class="category-title">
+        <span class="category-title"
+              data-i18n="categories">
             Категории:
         </span>
 
-        <a href="#">Художницы</a> ·
-        <a href="#">Певицы</a> ·
-        <a href="#">Родившиеся в 2007 году</a> ·
-        <a href="#">Украинские художницы</a>
+        <a href="#"
+           data-i18n="cat1">
+            Художницы
+        </a>
+
+        ·
+
+        <a href="#"
+           data-i18n="cat2">
+            Певицы
+        </a>
+
+        ·
+
+        <a href="#"
+           data-i18n="cat3">
+            Родившиеся в 2007 году
+        </a>
+
+        ·
+
+        <a href="#"
+           data-i18n="cat4">
+            Украинские художницы
+        </a>
 
     </div>
 
@@ -934,17 +1011,27 @@ footer {
 
     <footer>
 
-        Текст страницы составлен на основании
-        доступных сведений.
+        <span data-i18n="footer1">
+            Текст страницы составлен на основании
+            доступных сведений.
+        </span>
 
         <br><br>
 
-        Последнее изменение:
-        <span class="secret">████████████████</span>
+        <span data-i18n="lastchange">
+            Последнее изменение:
+        </span>
+
+        <span class="secret">
+            ████████████████
+        </span>
 
         <br>
 
-        Идентификатор записи:
+        <span data-i18n="id">
+            Идентификатор записи:
+        </span>
+
         <span class="footer-glitch">
             SUNET / 14-08-2007 / █████
         </span>
@@ -954,6 +1041,324 @@ footer {
 </main>
 
 </div>
+
+
+<!-- =====================================================
+     LANGUAGE SCRIPT
+     ===================================================== -->
+
+<script>
+
+const translations = {
+
+ru: {
+
+encyclopedia: "Энциклопедия",
+navigation: "Навигация",
+start: "Начало",
+biography: "Биография",
+activity: "Деятельность",
+status: "Статус",
+tools: "Инструменты",
+article: "Статья",
+discussion: "Обсуждение",
+read: "Читать",
+edit: "Править",
+history: "История",
+other: "Прочее",
+changes: "Связанные изменения",
+cite: "Цитировать",
+permalink: "Постоянная ссылка",
+search: "Поиск",
+artist: "художница",
+name: "Имя",
+alias: "Псевдоним",
+birth: "Дата рождения",
+birthdate: "14 августа 2007",
+birthplace: "Место рождения",
+ukraine: "Украина",
+occupation: "Род деятельности",
+occupations: "художница, певица",
+currentstatus: "Статус",
+unknown: "сведения отсутствуют",
+intro1: "Sunet (настоящее имя — София; род. 14 августа 2007, Украина) — художница, в детстве занимавшаяся вокалом, танцами и балетом.",
+intro2: "В настоящее время достоверные сведения о её местонахождении и жизни отсутствуют.",
+contents: "Содержание",
+toc1: "1. Биография",
+toc11: "1.1 Детство",
+toc2: "2. Творческая деятельность",
+toc21: "2.1 Телевидение",
+toc22: "2.2 Вокал",
+toc3: "3. Текущий статус",
+bioTitle: "Биография",
+bio1: "София родилась 14 августа 2007 года на территории Украины. Сведения о ранних годах её жизни представлены фрагментарно.",
+bio2: "По имеющимся сведениям, с раннего возраста она проявляла интерес к сценическому искусству, музыке и танцу.",
+childhoodTitle: "Детство",
+childhood1: "В детстве София занималась танцами и балетом. Также она занималась вокалом и исполняла песни.",
+childhood2: "В один из периодов детства она участвовала в телевизионной передаче, в рамках которой занималась приготовлением пищи.",
+quote: "Точная информация о названии передачи, дате выхода эпизода и телеканале отсутствует.",
+activityTitle: "Творческая деятельность",
+activity1: "Основным направлением деятельности Sunet является изобразительное искусство.",
+activity2: "Сведения о раннем творческом периоде, используемых техниках и количестве работ ограничены.",
+activity3: "В сохранившихся описаниях её творчество связывается с образами кукол, сказочных пространств и изменённой реальности.",
+televisionTitle: "Телевидение",
+television1: "В детстве София участвовала в телевизионной программе, где готовила блюда перед камерой.",
+television2: "Архивные сведения о программе в настоящее время не установлены.",
+voiceTitle: "Вокал",
+voice1: "До исчезновения из публичного поля София занималась вокалом и пела.",
+missing: "Некоторые сведения о данном периоде отсутствуют.",
+statusTitle: "Текущий статус",
+noticeTitle: "Сведения о местонахождении отсутствуют",
+noticeText: "Информация о текущей жизни Софии, её местонахождении и состоянии не подтверждена доступными сведениями.",
+doll: "Согласно сохранившимся описаниям, в настоящее время Sunet представляется как кукла.",
+princess: "Её также связывают с образом потерянной принцессы Страны чудес, находящейся в Стране кошмаров.",
+reliability: "Достоверность данных сведений установить невозможно.",
+lastconfirmed: "Последняя подтверждённая информация:",
+location: "Последнее местонахождение:",
+date: "Дата:",
+further: "Дальнейшие сведения отсутствуют.",
+notupdated: "Статья не обновлялась.",
+categories: "Категории:",
+cat1: "Художницы",
+cat2: "Певицы",
+cat3: "Родившиеся в 2007 году",
+cat4: "Украинские художницы",
+footer1: "Текст страницы составлен на основании доступных сведений.",
+lastchange: "Последнее изменение:",
+id: "Идентификатор записи:"
+
+},
+
+uk: {
+
+encyclopedia: "Енциклопедія",
+navigation: "Навігація",
+start: "Початок",
+biography: "Біографія",
+activity: "Діяльність",
+status: "Статус",
+tools: "Інструменти",
+article: "Стаття",
+discussion: "Обговорення",
+read: "Читати",
+edit: "Редагувати",
+history: "Історія",
+other: "Інше",
+changes: "Пов'язані зміни",
+cite: "Цитувати",
+permalink: "Постійне посилання",
+search: "Пошук",
+artist: "художниця",
+name: "Ім'я",
+alias: "Псевдонім",
+birth: "Дата народження",
+birthdate: "14 серпня 2007",
+birthplace: "Україна",
+ukraine: "Україна",
+occupation: "Рід діяльності",
+occupations: "художниця, співачка",
+currentstatus: "Статус",
+unknown: "відомості відсутні",
+intro1: "Sunet (справжнє ім'я — Софія; нар. 14 серпня 2007, Україна) — художниця, яка в дитинстві займалася вокалом, танцями та балетом.",
+intro2: "Наразі достовірні відомості про її місцезнаходження та життя відсутні.",
+contents: "Зміст",
+toc1: "1. Біографія",
+toc11: "1.1 Дитинство",
+toc2: "2. Творча діяльність",
+toc21: "2.1 Телебачення",
+toc22: "2.2 Вокал",
+toc3: "3. Поточний статус",
+bioTitle: "Біографія",
+bio1: "Софія народилася 14 серпня 2007 року на території України. Відомості про її ранні роки життя представлені фрагментарно.",
+bio2: "За наявними відомостями, з раннього віку вона виявляла інтерес до сценічного мистецтва, музики та танцю.",
+childhoodTitle: "Дитинство",
+childhood1: "У дитинстві Софія займалася танцями та балетом. Також вона займалася вокалом і співала.",
+childhood2: "В один із періодів дитинства вона брала участь у телевізійній передачі, у межах якої готувала їжу.",
+quote: "Точна інформація про назву передачі, дату виходу епізоду та телеканал відсутня.",
+activityTitle: "Творча діяльність",
+activity1: "Основним напрямом діяльності Sunet є образотворче мистецтво.",
+activity2: "Відомості про ранній творчий період, використовувані техніки та кількість робіт обмежені.",
+activity3: "У збережених описах її творчість пов'язується з образами ляльок, казкових просторів та зміненої реальності.",
+televisionTitle: "Телебачення",
+television1: "У дитинстві Софія брала участь у телевізійній програмі, де готувала страви перед камерою.",
+television2: "Архівні відомості про програму наразі не встановлені.",
+voiceTitle: "Вокал",
+voice1: "До зникнення з публічного поля Софія займалася вокалом і співала.",
+missing: "Деякі відомості про цей період відсутні.",
+statusTitle: "Поточний статус",
+noticeTitle: "Відомості про місцезнаходження відсутні",
+noticeText: "Інформація про поточне життя Софії, її місцезнаходження та стан не підтверджена доступними відомостями.",
+doll: "Згідно зі збереженими описами, наразі Sunet постає як лялька.",
+princess: "Її також пов'язують з образом загубленої принцеси Країни чудес, ув'язненої в Країні кошмарів.",
+reliability: "Достовірність цих відомостей встановити неможливо.",
+lastconfirmed: "Остання підтверджена інформація:",
+location: "Останнє місцезнаходження:",
+date: "Дата:",
+further: "Подальші відомості відсутні.",
+notupdated: "Стаття не оновлювалася.",
+categories: "Категорії:",
+cat1: "Художниці",
+cat2: "Співачки",
+cat3: "Народжені 2007 року",
+cat4: "Українські художниці",
+footer1: "Текст сторінки складено на основі доступних відомостей.",
+lastchange: "Остання зміна:",
+id: "Ідентифікатор запису:"
+
+},
+
+en: {
+
+encyclopedia: "Encyclopedia",
+navigation: "Navigation",
+start: "Main page",
+biography: "Biography",
+activity: "Activity",
+status: "Status",
+tools: "Tools",
+article: "Article",
+discussion: "Discussion",
+read: "Read",
+edit: "Edit",
+history: "View history",
+other: "Other",
+changes: "Related changes",
+cite: "Cite this page",
+permalink: "Permanent link",
+search: "Search",
+artist: "artist",
+name: "Name",
+alias: "Pseudonym",
+birth: "Born",
+birthdate: "14 August 2007",
+birthplace: "Ukraine",
+ukraine: "Ukraine",
+occupation: "Occupation",
+occupations: "artist, singer",
+currentstatus: "Status",
+unknown: "information unavailable",
+intro1: "Sunet (real name — Sofia; born 14 August 2007, Ukraine) is an artist who studied vocals, dance and ballet during childhood.",
+intro2: "At present, no reliable information concerning her whereabouts or life is available.",
+contents: "Contents",
+toc1: "1. Biography",
+toc11: "1.1 Childhood",
+toc2: "2. Artistic activity",
+toc21: "2.1 Television",
+toc22: "2.2 Vocals",
+toc3: "3. Current status",
+bioTitle: "Biography",
+bio1: "Sofia was born on 14 August 2007 in Ukraine. Information concerning her early years is fragmentary.",
+bio2: "According to available information, she showed an interest in performing arts, music and dance from an early age.",
+childhoodTitle: "Childhood",
+childhood1: "During childhood, Sofia studied dance and ballet. She also received vocal training and sang.",
+childhood2: "At some point during childhood, she appeared on a television programme where she prepared food on camera.",
+quote: "The exact name of the programme, broadcast date and television channel are unknown.",
+activityTitle: "Artistic activity",
+activity1: "Sunet's primary field of activity is visual art.",
+activity2: "Information concerning her early artistic period, techniques and number of works is limited.",
+activity3: "Existing descriptions associate her work with dolls, fairy-tale spaces and altered reality.",
+televisionTitle: "Television",
+television1: "During childhood, Sofia appeared on a television programme where she prepared food on camera.",
+television2: "Archival information concerning the programme has not been established.",
+voiceTitle: "Vocals",
+voice1: "Before disappearing from the public sphere, Sofia studied vocals and sang.",
+missing: "Some information concerning this period is unavailable.",
+statusTitle: "Current status",
+noticeTitle: "Whereabouts unknown",
+noticeText: "Information concerning Sofia's current life, whereabouts and condition has not been confirmed by available sources.",
+doll: "According to surviving descriptions, Sunet is now represented as a doll.",
+princess: "She is also associated with the image of the lost Princess of Wonderland, imprisoned in the Nightmare Country.",
+reliability: "The reliability of this information cannot be established.",
+lastconfirmed: "Last confirmed information:",
+location: "Last known location:",
+date: "Date:",
+further: "No further information is available.",
+notupdated: "This article has not been updated.",
+categories: "Categories:",
+cat1: "Women artists",
+cat2: "Singers",
+cat3: "2007 births",
+cat4: "Ukrainian artists",
+footer1: "The text of this page is based on available information.",
+lastchange: "Last modification:",
+id: "Record identifier:"
+
+}
+
+};
+
+
+/* ================= LANGUAGE FUNCTION ================= */
+
+function changeLanguage(lang) {
+
+    const data = translations[lang];
+
+    document.documentElement.lang =
+        lang === "uk" ? "uk" : lang;
+
+    document.querySelectorAll("[data-i18n]").forEach(element => {
+
+        const key = element.getAttribute("data-i18n");
+
+        if (data[key] !== undefined) {
+            element.innerHTML = data[key];
+        }
+
+    });
+
+
+    document.querySelectorAll("[data-placeholder]").forEach(element => {
+
+        const key = element.getAttribute("data-placeholder");
+
+        if (data[key] !== undefined) {
+            element.placeholder = data[key];
+        }
+
+    });
+
+
+    document.querySelectorAll(".lang-btn").forEach(button => {
+
+        button.classList.remove("active");
+
+        if (button.dataset.lang === lang) {
+            button.classList.add("active");
+        }
+
+    });
+
+
+    localStorage.setItem("sunetLanguage", lang);
+}
+
+
+/* ================= BUTTONS ================= */
+
+document.querySelectorAll(".lang-btn").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        changeLanguage(button.dataset.lang);
+
+    });
+
+});
+
+
+/* ================= LOAD SAVED LANGUAGE ================= */
+
+const savedLanguage =
+    localStorage.getItem("sunetLanguage");
+
+if (savedLanguage && translations[savedLanguage]) {
+
+    changeLanguage(savedLanguage);
+
+}
+
+</script>
 
 </body>
 </html>
