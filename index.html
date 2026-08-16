@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sunet — энциклопедия</title>
+
+<style>
+/* =========================================================
+   BASE — Wikipedia / MediaWiki inspired
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: #fff;
+    color: #202122;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                 Roboto, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* =========================================================
+   TOP BAR
+   ========================================================= */
+
+.topbar {
+    height: 50px;
+    border-bottom: 1px solid #c8ccd1;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    background: #fff;
+}
+
+.menu {
+    font-size: 22px;
+    margin-right: 18px;
+    color: #54595d;
+}
+
+.site-name {
+    font-size: 17px;
+    color: #202122;
+    font-weight: 600;
+}
+
+.search {
+    margin-left: auto;
+    width: 240px;
+    height: 32px;
+    border: 1px solid #a2a9b1;
+    padding: 5px 9px;
+    font-size: 14px;
+    color: #72777d;
+}
+
+.search::placeholder {
+    color: #72777d;
+}
+
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+.page {
+    width: min(1100px, 94%);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1fr);
+    gap: 35px;
+}
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.sidebar {
+    padding-top: 35px;
+    color: #54595d;
+}
+
+.sidebar-title {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.sidebar a {
+    display: block;
+    color: #36c;
+    text-decoration: none;
+    padding: 3px 0;
+}
+
+.sidebar a:hover {
+    text-decoration: underline;
+}
+
+.sidebar-line {
+    height: 1px;
+    background: #eaecf0;
+    margin: 18px 0;
+}
+
+/* =========================================================
+   ARTICLE
+   ========================================================= */
+
+.article {
+    max-width: 850px;
+    padding: 35px 0 80px;
+}
+
+.article-header {
+    border-bottom: 1px solid #a2a9b1;
+    margin-bottom: 18px;
+}
+
+.article-header h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 36px;
+    font-weight: 400;
+    margin: 0 0 8px;
+}
+
+.tabs {
+    display: flex;
+    gap: 16px;
+    font-size: 13px;
+    color: #54595d;
+    padding-bottom: 8px;
+}
+
+.tabs span:first-child {
+    color: #202122;
+    font-weight: 600;
+}
+
+.tabs span:not(:first-child) {
+    color: #36c;
+}
+
+/* =========================================================
+   INTRO
+   ========================================================= */
+
+.intro {
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+a {
+    color: #36c;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* =========================================================
+   INFOBOX
+   ========================================================= */
+
+.infobox {
+    float: right;
+    width: 280px;
+    margin: 0 0 25px 30px;
+    border: 1px solid #a2a9b1;
+    background: #f8f9fa;
+    font-size: 13px;
+}
+
+.infobox-title {
+    background: #eaecf0;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 8px;
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+.infobox-subtitle {
+    text-align: center;
+    padding: 4px 8px 10px;
+    font-style: italic;
+    color: #54595d;
+}
+
+.infobox-row {
+    display: grid;
+    grid-template-columns: 43% 57%;
+    border-top: 1px solid #c8ccd1;
+}
+
+.infobox-label {
+    padding: 6px;
+    font-weight: 600;
+}
+
+.infobox-value {
+    padding: 6px;
+}
+
+/* =========================================================
+   TOC
+   ========================================================= */
+
+.toc {
+    display: table;
+    border: 1px solid #a2a9b1;
+    background: #f8f9fa;
+    padding: 10px 15px 12px;
+    margin: 25px 0;
+    min-width: 270px;
+}
+
+.toc-title {
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.toc a {
+    display: block;
+    padding: 1px 0;
+}
+
+.toc .sub {
+    padding-left: 22px;
+}
+
+/* =========================================================
+   HEADINGS
+   ========================================================= */
+
+h2 {
+    clear: both;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 25px;
+    font-weight: 400;
+    border-bottom: 1px solid #a2a9b1;
+    margin: 35px 0 12px;
+    padding-bottom: 3px;
+}
+
+h3 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 19px;
+    font-weight: 400;
+}
+
+/* =========================================================
+   SECRET BARS
+   ========================================================= */
+
+.secret {
+    display: inline-block;
+    background: #111;
+    color: #111;
+    padding: 0 18px;
+    margin: 0 2px;
+    user-select: none;
+    transition: .15s;
+}
+
+.secret:hover {
+    color: #ddd;
+}
+
+.secret-long {
+    display: block;
+    height: 13px;
+    background: #111;
+    margin: 10px 0;
+    width: 100%;
+}
+
+.secret-medium {
+    display: block;
+    height: 13px;
+    background: #111;
+    margin: 10px 0;
+    width: 72%;
+}
+
+.secret-short {
+    display: block;
+    height: 13px;
+    background: #111;
+    margin: 10px 0;
+    width: 38%;
+}
+
+/* =========================================================
+   STRANGE TEXT
+   ========================================================= */
+
+.distorted {
+    color: #202122;
+    position: relative;
+}
+
+.distorted:hover {
+    animation: tremor .12s infinite;
+}
+
+@keyframes tremor {
+    0% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-1px);
+    }
+
+    50% {
+        transform: translateX(1px);
+    }
+
+    75% {
+        transform: translateX(-1px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* =========================================================
+   NOTICE
+   ========================================================= */
+
+.notice {
+    border: 1px solid #a2a9b1;
+    background: #f8f9fa;
+    padding: 10px 14px;
+    margin: 20px 0;
+}
+
+.notice-title {
+    font-weight: 700;
+}
+
+/* =========================================================
+   QUOTE
+   ========================================================= */
+
+.quote {
+    margin: 20px 0;
+    padding: 10px 20px;
+    border-left: 3px solid #c8ccd1;
+    color: #54595d;
+}
+
+/* =========================================================
+   CATEGORIES
+   ========================================================= */
+
+.categories {
+    clear: both;
+    margin-top: 45px;
+    padding: 10px;
+    border: 1px solid #c8ccd1;
+    background: #f8f9fa;
+    font-size: 13px;
+}
+
+.category-title {
+    font-weight: 700;
+    margin-right: 10px;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+footer {
+    border-top: 1px solid #c8ccd1;
+    margin-top: 40px;
+    padding: 25px 0 50px;
+    color: #54595d;
+    font-size: 12px;
+}
+
+.footer-glitch {
+    margin-top: 25px;
+    font-family: monospace;
+    letter-spacing: 2px;
+    color: #fff;
+    background: #111;
+    display: inline-block;
+    padding: 1px 7px;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 800px) {
+
+    .page {
+        display: block;
+        width: 94%;
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    .article {
+        padding-top: 25px;
+    }
+
+    .search {
+        width: 150px;
+    }
+
+    .infobox {
+        float: none;
+        width: 100%;
+        margin: 20px 0;
+    }
+
+    .article-header h1 {
+        font-size: 30px;
+    }
+
+    .secret-long {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .topbar {
+        padding: 0 12px;
+    }
+
+    .search {
+        display: none;
+    }
+
+    .article {
+        font-size: 14px;
+    }
+
+    .toc {
+        width: 100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     TOP
+     ===================================================== -->
+
+<header class="topbar">
+
+    <div class="menu">☰</div>
+
+    <div class="site-name">
+        Энциклопедия
+    </div>
+
+    <input
+        class="search"
+        type="text"
+        placeholder="Поиск"
+    >
+
+</header>
+
+
+<div class="page">
+
+<!-- =====================================================
+     SIDEBAR
+     ===================================================== -->
+
+<aside class="sidebar">
+
+    <div class="sidebar-title">
+        Навигация
+    </div>
+
+    <a href="#intro">Начало</a>
+    <a href="#bio">Биография</a>
+    <a href="#activity">Деятельность</a>
+    <a href="#status">Статус</a>
+
+    <div class="sidebar-line"></div>
+
+    <div class="sidebar-title">
+        Инструменты
+    </div>
+
+    <a href="#">Статья</a>
+    <a href="#">Обсуждение</a>
+    <a href="#">Читать</a>
+    <a href="#">Править</a>
+    <a href="#">История</a>
+
+    <div class="sidebar-line"></div>
+
+    <div class="sidebar-title">
+        Прочее
+    </div>
+
+    <a href="#">Связанные изменения</a>
+    <a href="#">Цитировать</a>
+    <a href="#">Постоянная ссылка</a>
+
+</aside>
+
+
+<!-- =====================================================
+     ARTICLE
+     ===================================================== -->
+
+<main class="article" id="intro">
+
+    <div class="article-header">
+
+        <h1>Sunet</h1>
+
+        <div class="tabs">
+            <span>Статья</span>
+            <span>Обсуждение</span>
+            <span>Читать</span>
+            <span>Править</span>
+            <span>История</span>
+        </div>
+
+    </div>
+
+
+    <!-- INFOBOX -->
+
+    <aside class="infobox">
+
+        <div class="infobox-title">
+            Sunet
+        </div>
+
+        <div class="infobox-subtitle">
+            художница
+        </div>
+
+        <div class="infobox-row">
+
+            <div class="infobox-label">
+                Имя
+            </div>
+
+            <div class="infobox-value">
+                София
+            </div>
+
+        </div>
+
+        <div class="infobox-row">
+
+            <div class="infobox-label">
+                Псевдоним
+            </div>
+
+            <div class="infobox-value">
+                Sunet
+            </div>
+
+        </div>
+
+        <div class="infobox-row">
+
+            <div class="infobox-label">
+                Дата рождения
+            </div>
+
+            <div class="infobox-value">
+                14 августа 2007
+            </div>
+
+        </div>
+
+        <div class="infobox-row">
+
+            <div class="infobox-label">
+                Место рождения
+            </div>
+
+            <div class="infobox-value">
+                Украина
+            </div>
+
+        </div>
+
+        <div class="infobox-row">
+
+            <div class="infobox-label">
+                Род деятельности
+            </div>
+
+            <div class="infobox-value">
+                художница, певица
+            </div>
+
+        </div>
+
+        <div class="infobox-row">
+
+            <div class="infobox-label">
+                Статус
+            </div>
+
+            <div class="infobox-value">
+                сведения отсутствуют
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- INTRO -->
+
+    <p class="intro">
+
+        <b>Sunet</b> (настоящее имя — <b>София</b>;
+        род. 14 августа 2007, Украина) — художница,
+        в детстве занимавшаяся вокалом, танцами и балетом.
+
+    </p>
+
+    <p class="intro">
+
+        В настоящее время достоверные сведения о её
+        местонахождении и жизни отсутствуют.
+
+    </p>
+
+
+    <!-- SECRET -->
+
+    <div class="secret-long"></div>
+
+    <div class="secret-medium"></div>
+
+    <div class="secret-short"></div>
+
+
+    <!-- TOC -->
+
+    <div class="toc">
+
+        <div class="toc-title">
+            Содержание
+        </div>
+
+        <a href="#bio">
+            1. Биография
+        </a>
+
+        <a href="#childhood" class="sub">
+            1.1 Детство
+        </a>
+
+        <a href="#activity">
+            2. Творческая деятельность
+        </a>
+
+        <a href="#television" class="sub">
+            2.1 Телевидение
+        </a>
+
+        <a href="#voice" class="sub">
+            2.2 Вокал
+        </a>
+
+        <a href="#status">
+            3. Текущий статус
+        </a>
+
+    </div>
+
+
+    <!-- BIOGRAPHY -->
+
+    <h2 id="bio">
+        Биография
+    </h2>
+
+    <p>
+
+        София родилась 14 августа 2007 года
+        на территории Украины.
+
+        Сведения о ранних годах её жизни
+        представлены фрагментарно.
+
+    </p>
+
+    <p>
+
+        По имеющимся сведениям, с раннего возраста
+        она проявляла интерес к сценическому искусству,
+        музыке и танцу.
+
+    </p>
+
+
+    <h3 id="childhood">
+        Детство
+    </h3>
+
+    <p>
+
+        В детстве София занималась танцами и балетом.
+        Также она занималась вокалом и исполняла песни.
+
+    </p>
+
+    <p>
+
+        В один из периодов детства она участвовала
+        в телевизионной передаче, в рамках которой
+        занималась приготовлением пищи.
+
+    </p>
+
+    <div class="quote">
+
+        Точная информация о названии передачи,
+        дате выхода эпизода и телеканале отсутствует.
+
+    </div>
+
+
+    <!-- ACTIVITY -->
+
+    <h2 id="activity">
+        Творческая деятельность
+    </h2>
+
+    <p>
+
+        Основным направлением деятельности Sunet
+        является изобразительное искусство.
+
+    </p>
+
+    <p>
+
+        Сведения о раннем творческом периоде,
+        используемых техниках и количестве работ
+        ограничены.
+
+    </p>
+
+    <p class="distorted">
+
+        В сохранившихся описаниях её творчество
+        связывается с образами кукол, сказочных
+        пространств и изменённой реальности.
+
+    </p>
+
+
+    <h3 id="television">
+        Телевидение
+    </h3>
+
+    <p>
+
+        В детстве София участвовала в телевизионной
+        программе, где готовила блюда перед камерой.
+
+    </p>
+
+    <p>
+
+        Архивные сведения о программе в настоящее
+        время не установлены.
+
+    </p>
+
+
+    <h3 id="voice">
+        Вокал
+    </h3>
+
+    <p>
+
+        До исчезновения из публичного поля София
+        занималась вокалом и пела.
+
+    </p>
+
+
+    <!-- MORE BLACK -->
+
+    <div class="secret-long"></div>
+
+    <p>
+        Некоторые сведения о данном периоде
+        <span class="secret">████████████████</span>
+        отсутствуют.
+    </p>
+
+    <div class="secret-medium"></div>
+
+
+    <!-- STATUS -->
+
+    <h2 id="status">
+        Текущий статус
+    </h2>
+
+    <div class="notice">
+
+        <div class="notice-title">
+            Сведения о местонахождении отсутствуют
+        </div>
+
+        Информация о текущей жизни Софии,
+        её местонахождении и состоянии
+        не подтверждена доступными сведениями.
+
+    </div>
+
+    <p>
+
+        Согласно сохранившимся описаниям,
+        в настоящее время Sunet представляется
+        как <b>кукла</b>.
+
+    </p>
+
+    <p>
+
+        Её также связывают с образом
+        <b>потерянной принцессы Страны чудес</b>,
+        находящейся в <b>Стране кошмаров</b>.
+
+    </p>
+
+    <p>
+
+        Достоверность данных сведений установить
+        невозможно.
+
+    </p>
+
+
+    <div class="secret-long"></div>
+
+    <div class="secret-short"></div>
+
+    <div class="secret-medium"></div>
+
+    <p>
+
+        Последняя подтверждённая информация:
+        <span class="secret">████████████████████████████</span>
+
+    </p>
+
+    <p>
+
+        Последнее местонахождение:
+        <span class="secret">████████████████████████</span>
+
+    </p>
+
+    <p>
+
+        Дата:
+        <span class="secret">████████████</span>
+
+    </p>
+
+    <div class="secret-long"></div>
+
+
+    <!-- FINAL -->
+
+    <p>
+
+        <i>
+            Дальнейшие сведения отсутствуют.
+        </i>
+
+    </p>
+
+    <p>
+
+        <span class="distorted">
+            Статья не обновлялась.
+        </span>
+
+    </p>
+
+
+    <!-- CATEGORIES -->
+
+    <div class="categories">
+
+        <span class="category-title">
+            Категории:
+        </span>
+
+        <a href="#">Художницы</a> ·
+        <a href="#">Певицы</a> ·
+        <a href="#">Родившиеся в 2007 году</a> ·
+        <a href="#">Украинские художницы</a>
+
+    </div>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        Текст страницы составлен на основании
+        доступных сведений.
+
+        <br><br>
+
+        Последнее изменение:
+        <span class="secret">████████████████</span>
+
+        <br>
+
+        Идентификатор записи:
+        <span class="footer-glitch">
+            SUNET / 14-08-2007 / █████
+        </span>
+
+    </footer>
+
+</main>
+
+</div>
+
+</body>
+</html>
